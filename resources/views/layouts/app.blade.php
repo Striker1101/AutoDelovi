@@ -16,7 +16,7 @@
             <img height="60px" src="/img/logo.png" alt="">
         </a>
         
-        <h4 class="ml-auto" style="font-style: italic; padding-top:10px" >- Sve za Vase vozilo -</h4>
+        <h4 class="ml-auto" style="font-weight:600; color:green; font-style: italic; padding-top:10px" >- KHELILI AUTO CAR SLOT -</h4>
         
         <div class="nav-link ml-auto">
 
@@ -26,11 +26,11 @@
                 {{ Auth::user()->name }} 
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="{{route('admin')}}">Kontrolni centar</a>
+                  <a class="dropdown-item" href="{{route('admin')}}">Admin Panel</a>
                   <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                                   document.getElementById('logout-form').submit();">
-                      Odjavite se
+                    Log out
                   </a>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                       @csrf
@@ -40,14 +40,14 @@
                                 
               @if(auth()->user())
                 <a class="nav-link text-dark" href="{{ route('logout') }}" onclick="event.preventDefault();
-                  document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-lg mr-1" aria-hidden="true"></i> Odjavite se</a>
+                  document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-lg mr-1" aria-hidden="true"></i>Log Out</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                   @csrf
                 </form>
               @endif
             @endif
           @else
-              <a class="nav-link text-dark" href="{{route('login')}}"><i class="fa fa-sign-in fa-lg mr-1" aria-hidden="true"></i> Prijavite se</a>
+              <a class="nav-link text-dark" href="{{route('login')}}"><i class="fa fa-sign-in fa-lg mr-1" aria-hidden="true"></i> Login</a>
           @endif
 
         </div>
@@ -62,13 +62,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                  <a class="nav-link text-light" href="{{route('home')}}">Početna<span class="sr-only"></span></a>
+                  <a class="nav-link text-light" href="{{route('home')}}">Home<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-light" href="{{route('all_products')}}">Produkti</a>
+                  <a class="nav-link text-light" href="{{route('all_products')}}">Products</a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategorije</a>
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     @yield('categories')
                     @foreach ($categories as $category)
@@ -81,7 +81,7 @@
               </ul>
               <form class="form-inline my-2 my-lg-0" type="get" enctype="multipart/form-data" action="{{route('search_products')}}">
                 @csrf
-                <input class="form-control mr-sm-2" name="query" type="search" placeholder="Pretraga proizvoda.." aria-label="Search">
+                <input class="form-control mr-sm-2" name="query" type="search" placeholder="Search Products Here" aria-label="Search">
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
               </form>
             </div>
@@ -108,7 +108,7 @@
     <div class="row">
       <!--Grid column-->
       <div class="col-lg-6 col-md-12 pr-5 mb-4 mb-md-0">
-        <h5 class="text-uppercase">Gde nas možete pronaći</h5>
+        <h5 class="text-uppercase">Google Map Location</h5>
 
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2921.4176515727513!2d20.81315060069665!3d42.92732132818893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDLCsDU1JzM4LjQiTiAyMMKwNDgnNTIuMCJF!5e0!3m2!1ssr!2srs!4v1633445151361!5m2!1ssr!2srs" width="500" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
       </div>
@@ -116,7 +116,7 @@
 
       <!--Grid column-->
       <div class="col-lg-3 col-md-6 mb-4 pl-5 mb-md-0">
-        <h5 class="text-uppercase">Društvene mreže</h5>
+        <h5 class="text-uppercase">Follow us on our Social Media Handles</h5>
 
         <ul class="list-unstyled mb-0">
           <li class="pt-3">
@@ -137,17 +137,17 @@
 
       <!--Grid column-->
       <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-        <h5 class="text-uppercase mb-0">Informacije</h5>
+        <h5 class="text-uppercase mb-0">Contact Information</h5>
 
         <ul class="list-unstyled">
           <li class="pt-3">
             <a href="#!" class="text-white "> <i class="fa fa-phone pr-1"></i> 0641234567</a>
           </li>
           <li class="pt-3">
-            <a href="#!" class="text-white pt-3"> <i class="fa fa-envelope pr-1"></i> autodelovi21@gmail.com</a>
+            <a href="#!" class="text-white pt-3"> <i class="fa fa-envelope pr-1"></i> KHELILI@gmail.com</a>
           </li>
           <li class="pt-3">
-            <a href="#!" class="text-white"> <i class="fa fa-map-pin pr-1"></i> Žerovnica, Doljane BB</a>
+            <a href="#!" class="text-white"> <i class="fa fa-map-pin pr-1"></i> new Era, Doljane BB</a>
           </li>
           <li>
             <a href="#!" class="text-white"></a>
@@ -163,7 +163,7 @@
   <!-- Copyright -->
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
     © 2020 Copyright:
-    <a class="text-white" href="">Dimitrije Minic</a>
+    <a class="text-white" href=""> Mohamed Islam KHELILI </a>
   </div>
   <!-- Copyright -->
 </footer>
