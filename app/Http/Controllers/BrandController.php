@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Brand;
-
+use Illuminate\Support\Facades\DB;
 
 class BrandController extends Controller
 {
-    public function index(Bradn $brands)
+    public function index(Brand $brands)
     {
-        return view('brand.index', compact('bradns'));
+        $brands = Brand::all();
+        $categories = Category::all();
+        return view('brand.index', compact('brands', 'categories'));
     }
     public function create()
     {
@@ -26,24 +29,24 @@ class BrandController extends Controller
 
         $data = $request->all();
 
-        $imageName =time() . '.' . $request->image->extension();
+        $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('/storage/app/public/uploads'));
         $data['image'] = $imageName;
 
         Brand::create($data);
 
-        return redirect()->back()->with(['message' => 'Uspesno ste dodali brend!', 'alert' => 'alert-success']);
+        return redirect()->back()->with(['message' => 'Brand Created Succesfully ', 'alert' => 'alert-success']);
     }
 
     public function show()
     {
         $brands = Brand::all();
-        return view('brand.show', compact('brands'));
+        return view('brand.show', compact('brands', ));
     }
 
     public function destroy(Brand $brand)
     {
         $brand->delete();
-        return redirect()->back()->with(['message' => 'Uspesno ste obrisali brend!', 'alert' => 'alert-success']);
+        return redirect()->back()->with(['message' => 'Brand Deleted Successfully !!', 'alert' => 'alert-success']);
     }
 }

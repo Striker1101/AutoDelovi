@@ -8,15 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     use HasFactory;
-    protected  $guarded = [];
+    protected $guarded = [];
 
-    public function users(){
+    protected $fillable = ['user_id', 'first_name', 'last_name', 'address1', 'address2', 'zip', 'city', 'phone', 'email'];
+
+    public function users()
+    {
         return $this->belongsTo('\App\Models\User', 'user_id');
     }
-    
+
     public function products()
     {
-       return $this->hasMany('\App\Models\SoldProduct');
+        return $this->hasMany('\App\Models\SoldProduct');
     }
 
     public function carts()

@@ -22,8 +22,14 @@ class SoldProduct extends Migration
             $table->decimal('total_amount')->default(0);
 
             $table->timestamps();
-            $table->foreign('purchase_id')->references('id')->on('purchases');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('purchase_id')
+                ->references('id')
+                ->on('purchases')
+                ->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')
+                ->on('products')
+                ->onDelete('cascade');
         });
     }
 

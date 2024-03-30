@@ -13,7 +13,7 @@ class Purchase extends Migration
      */
     public function up()
     {
-        Schema::create('purchases', function (Blueprint $table){
+        Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('first_name');
@@ -38,7 +38,7 @@ class Purchase extends Migration
      */
     public function down()
     {
-      
+
         Schema::disableForeignKeyConstraints();
         Schema::drop('purchases');
         Schema::enableForeignKeyConstraints();

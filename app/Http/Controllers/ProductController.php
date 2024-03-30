@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
     public function index(Product $product, Category $category, Comment $comment, Brand $brand)
-    {   
+    {
         $categories = Category::all();
-        $vehicle_type =  [ 'Motor','Auto', 'Terenac', 'Kamion', 'Autobus' ];
-        $recomendedProducts = DB::table('products')->where('brand_id',  $product->brand->id)->take(4)->get();
+        $vehicle_type = ['Motor', 'Auto', 'Terenac', 'Kamion', 'Autobus'];
+        $recomendedProducts = DB::table('products')->where('brand_id', $product->brand->id)->take(4)->get();
 
         return view('product.index', compact('product', 'brand', 'category', 'categories', 'comment', 'recomendedProducts', 'vehicle_type'));
     }
@@ -36,7 +36,7 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $brands = Brand::all();
-        $vehicle_type =  [ 'Motor','Auto', 'Terenac', 'Kamion', 'Autobus' ];
+        $vehicle_type = ['Motor', 'Auto', 'Terenac', 'Kamion', 'Autobus'];
 
         return view('product.create', compact('categories', 'brands', 'vehicle_type'));
     }
@@ -44,43 +44,43 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'description'=>'required',
-            'price'=>'required',
-            'brand_id'=>'required',
-            'category_id'=>'required',
-            'vehicle_type'=>'',
-            'image'=>['required','image'] ,
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'brand_id' => 'required',
+            'category_id' => 'required',
+            'vehicle_type' => '',
+            'image' => ['required', 'image'],
         ]);
 
         $data = $request->all();
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('/storage/app/public/uploads'), $imageName);
-        $data['image']= $imageName;
+        $data['image'] = $imageName;
 
         Product::create($data);
-        return redirect()->back()->with(['message' => 'Uspesno ste kreirali produkt!', 'alert' => 'alert-success']);
+        return redirect()->back()->with(['message' => 'Product was created successfully !', 'alert' => 'alert-success']);
     }
-    
+
     public function edit($id)
     {
         $product = DB::table('products')->where('id', $id)->first();
         $categories = Category::all();
         $brands = Brand::all();
-        $vehicle_type =  [ 'Motor','Auto', 'Terenac', 'Kamion', 'Autobus' ];
+        $vehicle_type = ['Motor', 'Auto', 'Terenac', 'Kamion', 'Autobus'];
 
-        return view('product.edit', compact('product','categories', 'brands', 'vehicle_type'));
+        return view('product.edit', compact('product', 'categories', 'brands', 'vehicle_type'));
     }
 
     public function update(Request $request, Product $product)
     {
         $this->authorize('update', $product->id);
         $request->validate([
-            'name'=>'required',
-            'description'=>'required',
-            'price'=>'required',
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
         ]);
-        
+
         return view('product.update')->with(['message' => 'Uspesno ste azurilali produkt!', 'alert' => 'alert-success']);
     }
 
@@ -94,8 +94,8 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $cart = session()->get('cart', []);
-  
-        if(isset($cart[$id])) {
+
+        if (isset($cart[$id])) {
             $cart[$id]['quantity']++;
         } else {
             $cart[$id] = [
@@ -119,7 +119,7 @@ class ProductController extends Controller
     }
 
 
-   
+
     public function products_by_category(Category $category, Product $product)
     {
         $categories = Category::all();
@@ -139,7 +139,7 @@ class ProductController extends Controller
         $categories = Category::all();
 
         $search_text = $_GET['query'];
-        $products = Product::where('name', 'LIKE' , '%' .$search_text. '%')->with('category')->get();
+        $products = Product::where('name', 'LIKE', '%' . $search_text . '%')->with('category')->get();
         return view('product.productsBySearch', compact('products', 'categories'));
     }
 
@@ -150,9 +150,9 @@ class ProductController extends Controller
         return view('product.products_by_vehicle_type', compact('productsByVehicleType', 'categories'));
     }
 
-  public function allProductsAdmin()
-  {
-      $products = Product::all();
-      return view('product.allProductAdmin', compact('products'));
-  }
+    public function allProductsAdmin()
+    {
+        $products = Product::all();
+        return view('product.allProductAdmin', compact('products'));
+    }
 }

@@ -14,7 +14,7 @@ class PurchaseController extends Controller
 {
     public function index()
     {
-        
+
     }
 
     public function show()
@@ -33,31 +33,31 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id'=>'required',
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'address1'=>'required',
-            'address2'=>'',
-            'city'=>'required',
-            'zip'=>'required',
-            'phone'=>'required',
-            'email'=>'required',
+            'user_id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'address1' => 'required',
+            'address2' => '',
+            'city' => 'required',
+            'zip' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
         ]);
 
-       
-       $purchase = auth()->user()->purchase()->create($request->all());
 
-        foreach(auth()->user()->cart as $product)
-        {
+        $purchase = auth()->user()->purchase()->create($request->all());
+
+        foreach (auth()->user()->cart as $product) {
             $purchase->products()->create([
-                'product_id'=>$product->product_id,
-                'quantity'=>$product->quantity,
+                'product_id' => $product->product_id,
+                'quantity' => $product->quantity,
                 'price' => $product->product->price,
-                'total_amount' => $product->total]);
+                'total_amount' => $product->total
+            ]);
             $product->delete();
         }
-       
-        
+
+
         return redirect()->back()->with(['message' => 'Uspesno ste narucili produkt!', 'alert' => 'alert-success']);
     }
     public function purchaseInfo(Purchase $purchase, User $user)
@@ -65,10 +65,10 @@ class PurchaseController extends Controller
         return view('purchase.purchase_info', compact('purchase', 'user'));
     }
 
-    public function destroy(Purchase $purchase) 
+    public function destroy(Purchase $purchase)
     {
         $purchase->delete();
-        return redirect()->back()->with(['message' => 'Uspesno ste obrisali porudzbinu!', 'alert' => 'alert-success']);
-        
+        return redirect()->back()->with(['message' => 'Purchase Deleted Sucessfully ', 'alert' => 'alert-success']);
+
     }
 }

@@ -18,7 +18,7 @@ class CartController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $carts = auth()->user()->cart->all();
+        $carts = Cart::with(['user', 'product'])->get();
         return view('cart.index', compact('carts', 'categories'));
     }
 
@@ -40,9 +40,21 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        auth()->user()->cart()->create($request->all());
+        try {
+            // Create a new cart item for the authenticated user
+            auth()->user()->cart()->create($request->all());
+
+            // Flash a success message
+            session()->flash('success', 'Product added to cart successfully.');
+        } catch (\Exception $e) {
+            // If an error occurs, flash an error message
+            session()->flash('error', 'Error occurred while adding product to cart.');
+        }
+
+        // Redirect back to the previous page
         return redirect()->back();
     }
+
 
     /**
      * Display the specified resource.

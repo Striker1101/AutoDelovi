@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-      
+
     }
 
     public function create()
@@ -22,7 +22,7 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'image' => ['required','image']
+            'image' => ['required', 'image']
         ]);
 
         $data = $request->all();
@@ -34,7 +34,7 @@ class CategoryController extends Controller
 
         Category::create($data);
 
-        return redirect()->back()->with(['message' => 'Uspesno ste kreirali kategoriju!', 'alert' => 'alert-success']);
+        return redirect()->back()->with(['message' => 'Category created successfully!', 'alert' => 'alert-success']);
     }
     public function show()
     {
@@ -42,9 +42,9 @@ class CategoryController extends Controller
         return view('categories.show', compact('categories'));
     }
 
-    public function destroy( Category $category)
+    public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->back()->with(['message' => 'Uspesno ste obrisali kategoriju!', 'alert' => 'alert-success']);
+        return redirect()->back()->with(['message' => 'Deleted Succesfully ', 'alert' => 'alert-success']);
     }
 }

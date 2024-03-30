@@ -41,78 +41,140 @@
 
     <h2 class="pt-5 pl-5">Review Our Top Products:</h2>
 
-    <div class="card-deck p-5 d=flex justify-content-center">
+    <div class="container">
 
-        @foreach ($products as $product)
-            <a href="/product/{{ $product->id }}" class="text-dark">
-                <div class="card" style="min-width:320px; max-width:320px; min-height:430px; max-height:430px">
-                    <img class="img-fluid" src="/storage/app/public/uploads/{{ $product->image }}"
-                        style="object-fit: cover; height: 200px; alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ Str::limit($product->name, 20) }}</h5>
-                        <p class="card-text">{{ Str::limit($product->description, 20) }}</p>
-                        <form action="{{ route('cart.store') }}" enctype="multipart/form-data" method="post">
-                            @csrf
-                            <input type="product_id" value="{{ $product->id }}" name="product_id" id="product_id" hidden>
-                            <input type="number" value="1" name="quantity" hidden>
-                            <input type="total" value="{{ $product->price }}" name="total" hidden>
-                            @if (auth()->user() &&
-                                    auth()->user()->cart->contains('product_id', $product->id))
-                                <button class="btn btn-outline-danger mt-3" disabled>
-                                    Submit
-                                </button>
-                            @else
-                                <button class="btn btn-outline-primary mt-3" type="submit">Submit</button>
-                            @endif
-                        </form>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">{{ $product->created_at }}</small>
-                    </div>
-                </div>
-            </a>
-        @endforeach
+        @if (session('success'))
+            <div id="success-alert"
+                class="alert alert-success alert-dismissible d-flex justify-content-between align-items-center"
+                role="alert">
+                <span>{{ session('success') }}</span>
+                <button type="button" class="btn-close bg-danger text-light border-danger "
+                    aria-label="Close">Close</button>
+            </div>
+        @endif
 
+        {{-- @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">Close</button>
+            </div>
+        @endif --}}
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const closeButton = document.querySelector('#success-alert .btn-close');
+                const successAlert = document.querySelector('#success-alert');
+
+                if (closeButton) {
+                    closeButton.addEventListener('click', function() {
+                        successAlert.style.display = 'none';
+                    });
+                    console.log("here it is ")
+                }
+            });
+        </script>
+
+        <div class="card-deck p-5 d=flex justify-content-center">
+            {{-- storage/app/public/uploads/{{ $product->image }} --}}
+            @foreach ($products as $product)
+                <a href="/product/{{ $product->id }}" class="text-dark">
+                    <div class="card" style="min-width:320px; max-width:320px; min-height:430px; max-height:430px">
+                        <img class="img-fluid" src={{ $product->image }} style="object-fit: cover; height: 200px; alt="Card
+                            image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ Str::limit($product->name, 20) }}</h5>
+                            <p class="card-text">{{ Str::limit($product->description, 20) }}</p>
+                            <form action="{{ route('cart.store') }}" enctype="multipart/form-data" method="post">
+                                @csrf
+                                <input type="product_id" value="{{ $product->id }}" name="product_id" id="product_id"
+                                    hidden>
+                                <input type="number" value="1" name="quantity" hidden>
+                                <input type="total" value="{{ $product->price }}" name="total" hidden>
+                                @if (auth()->user() &&
+                                        auth()->user()->cart->contains('product_id', $product->id))
+                                    <button class="btn btn-outline-danger mt-3" disabled>
+                                        Already in Cart
+                                    </button>
+                                @else
+                                    @if (auth()->user())
+                                        <button class="btn btn-outline-primary mt-3" type="submit">Add to Cart</button>
+                                    @else
+                                        <button class="btn btn-outline-primary mt-3" type="submit"><a href="/login">Add to
+                                                Cart</a></button>
+                                    @endif
+                                @endif
+
+
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{ $product->created_at }}</small>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+            <a href="/all_products" class="text-dark" style="text-decoration: none;">See More Of Our
+                Products</a>
+        </div>
     </div>
+
+
 
 
     <hr>
 
     <h2 class="pt-5 pl-5">Popular Products</h2>
 
-    <div class="card-deck p-5">
+    <div class="container">
+        <div class="card-deck p-5">
 
-        @foreach ($popularProducts as $product)
-            <a href="/product/{{ $product->id }}" class="text-dark">
-                <div class="card" style="min-width:320px; max-width:320px; min-height:430px; max-height:430px">
-                    <img class="img-fluid" src="/storage/app/public/uploads/{{ $product->image }}"
-                        style="object-fit: cover; height: 200px; alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ Str::limit($product->name, 20) }}</h5>
-                        <p class="card-text">{{ Str::limit($product->description, 20) }}</p>
-                        <form action="{{ route('cart.store') }}" enctype="multipart/form-data" method="post">
-                            @csrf
-                            <input type="product_id" value="{{ $product->id }}" name="product_id" id="product_id"
-                                hidden>
-                            <input type="number" value="1" name="quantity" hidden>
-                            <input type="total" value="{{ $product->price }}" name="total" hidden>
-                            @if (auth()->user() &&
-                                    auth()->user()->cart->contains('product_id', $product->id))
-                                <button class="btn btn-outline-danger mt-3" disabled>
-                                    Dodato u korpi
-                                </button>
-                            @else
-                                <button class="btn btn-outline-primary mt-3" type="submit">Dodaj u korpi</button>
-                            @endif
-                        </form>
+            @foreach ($popularProducts as $product)
+                <a href="/product/{{ $product->id }}" class="text-dark">
+                    <div class="card" style="min-width:320px; max-width:320px; min-height:430px; max-height:430px">
+                        <img class="img-fluid" src="{{ $product->image }}"
+                            style="object-fit: cover; height: 200px; alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ Str::limit($product->name, 20) }}</h5>
+                            <p class="card-text">{{ Str::limit($product->description, 20) }}</p>
+                            <form action="{{ route('cart.store') }}" enctype="multipart/form-data" method="post">
+                                @csrf
+                                <input type="product_id" value="{{ $product->id }}" name="product_id" id="product_id"
+                                    hidden>
+                                <input type="number" value="1" name="quantity" hidden>
+                                <input type="total" value="{{ $product->price }}" name="total" hidden>
+                                @if (auth()->user() &&
+                                        auth()->user()->cart->contains('product_id', $product->id))
+                                    <button class="btn btn-outline-danger mt-3" disabled>
+                                        Already in Cart
+                                    </button>
+                                @else
+                                    @if (auth()->user())
+                                        <button class="btn btn-outline-primary mt-3" type="submit">Add to Cart</button>
+                                    @else
+                                        <button class="btn btn-outline-primary mt-3" type="submit"><a href="/login">Add
+                                                to
+                                                Cart</a></button>
+                                    @endif
+                                @endif
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{ $product->created_at }}</small>
+                        </div>
                     </div>
-                    <div class="card-footer">
-                        <small class="text-muted">{{ $product->created_at }}</small>
-                    </div>
-                </div>
-            </a>
-        @endforeach
+                </a>
+            @endforeach
 
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+            <a href="/all_products" class="text-dark" style="text-decoration: none;">See More Popular
+                Products</a>
+        </div>
     </div>
     <hr>
     <h2 class="pt-5 pl-5">Our Partners:</h2>
