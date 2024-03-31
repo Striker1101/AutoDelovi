@@ -17,14 +17,15 @@
 
                 <div class="col-8 offset-2">
                     <div class="row">
-                        <h2 class="p-4">See All Purchase</h2>
+                        <h2 class="p-4">Fill Purchase Form</h2>
                     </div>
                     <div class="row">
                         <div class="form-group col">
 
                             <input id="first_name" type="first_name"
                                 class="form-control @error('first_name') is-invalid @enderror" name="first_name"
-                                value="{{ old('first_name') }}" autocomplete="first_name" autofocus placeholder="Ime...">
+                                value="{{ old('first_name') }}" autocomplete="first_name" autofocus
+                                placeholder="First Name...">
 
                             @error('first_name')
                                 <span class="invalid-feedback" role="alert">
@@ -37,7 +38,8 @@
 
                             <input id="last_name" type="last_name"
                                 class="form-control @error('last_name') is-invalid @enderror" name="last_name"
-                                value="{{ old('last_name') }}" autocomplete="last_name" autofocus placeholder="Prezime...">
+                                value="{{ old('last_name') }}" autocomplete="last_name" autofocus
+                                placeholder="Last Name...">
 
                             @error('last_name')
                                 <span class="invalid-feedback" role="alert">
@@ -53,12 +55,11 @@
 
                             <input id="address1" type="address1"
                                 class="form-control @error('address1') is-invalid @enderror" name="address1"
-                                value="{{ old('address1') }}" autocomplete="address1" autofocus
-                                placeholder="Naziv ulice i broj zgrade">
+                                value="{{ old('address1') }}" autocomplete="address1" autofocus placeholder="address one">
 
                             @error('address1')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>First Address</strong>
+                                    <strong>First Address Invalid</strong>
                                 </span>
                             @enderror
 
@@ -69,11 +70,11 @@
                             <input id="address2" type="address2"
                                 class="form-control @error('address2') is-invalid @enderror" name="address2"
                                 value="{{ old('address2') }}" autocomplete="address2" autofocus
-                                placeholder="Stan, kuca, kancelarija...">
+                                placeholder="second address invalid ...">
 
                             @error('address2')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>Second Addres(Optional)</strong>
+                                    <strong>Second Addres(Optional) Invalid</strong>
                                 </span>
                             @enderror
 
@@ -85,7 +86,7 @@
 
                             <input id="city" type="city" class="form-control @error('city') is-invalid @enderror"
                                 name="city" value="{{ old('city') }}" autocomplete="city" autofocus
-                                placeholder="Naziv grada...">
+                                placeholder="City...">
 
                             @error('city')
                                 <span class="invalid-feedback" role="alert">
@@ -99,7 +100,7 @@
 
                             <input id="zip" type="zip" class="form-control @error('zip') is-invalid @enderror"
                                 name="zip" value="{{ old('zip') }}" autocomplete="zip" autofocus
-                                placeholder="Postanski broj...">
+                                placeholder=" 09393...">
 
                             @error('zip')
                                 <span class="invalid-feedback" role="alert">
@@ -128,11 +129,11 @@
 
                             <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror"
                                 name="phone" value="{{ old('phone') }}" autocomplete="phone" autofocus
-                                placeholder="Broj telefona...">
+                                placeholder="Phone Number...">
 
                             @error('phone')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>Phone</strong>
+                                    <strong>Phone Number</strong>
                                 </span>
                             @enderror
 

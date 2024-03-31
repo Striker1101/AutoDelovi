@@ -69,10 +69,11 @@
                         <div class="col-6 m-auto"> </div>
                         <div class="col m-auto">
                             <h5>Total: <strong>${{ $total }}</strong> </h5>
-                            {{-- @if ($carts)
-                                <a href="{{ route('create_purchase', $cart) }}"><button
-                                        class="btn btn-primary btn-lg btn-block">Purchase</button></a>
-                            @endif --}}
+                            @if ($carts && auth()->user()->role != 'admin')
+                                <a href="{{ route('create_purchase', $cart) }}">
+                                    <button class="btn btn-primary btn-lg btn-block">Purchase</button>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -81,7 +82,7 @@
 
         <div class="alert pt-5">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Postovani</strong> Ukoliko vam produkt ne odgovara, mozete ga lako zameniti
+                <strong>Products </strong> Click to continue purchase
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

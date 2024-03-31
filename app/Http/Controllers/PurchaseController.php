@@ -58,7 +58,7 @@ class PurchaseController extends Controller
         }
 
 
-        return redirect()->back()->with(['message' => 'Uspesno ste narucili produkt!', 'alert' => 'alert-success']);
+        return redirect()->back()->with(['message' => 'Purchase completed Successfully !', 'alert' => 'alert-success']);
     }
     public function purchaseInfo(Purchase $purchase, User $user)
     {

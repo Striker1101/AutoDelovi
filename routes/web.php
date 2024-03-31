@@ -30,12 +30,13 @@ Route::get('/brands', [\App\Http\Controllers\BrandController::class, 'index'])->
 Route::get('/brands/{brand}', [\App\Http\Controllers\BrandController::class, 'show'])->name('brand.show');
 
 Route::get('/vehicle', [\App\Http\Controllers\VehicleController::class, 'index'])->name('vehicle');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
 
 
 #Auth routesd-------------------------------------------------------------------------------------------------------
 Auth::routes();
 
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/product/purchase/create', [\App\Http\Controllers\PurchaseController::class, 'create'])->name('create_purchase');
 Route::post('/product/purchase/store', [\App\Http\Controllers\PurchaseController::class, 'store'])->name('store_purchase');
