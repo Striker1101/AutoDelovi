@@ -79,8 +79,8 @@
             @foreach ($products as $product)
                 <a href="/product/{{ $product->id }}" class="text-dark">
                     <div class="card" style="min-width:320px; max-width:320px; min-height:430px; max-height:430px">
-                        <img class="img-fluid" src={{ $product->image }} style="object-fit: cover; height: 200px; alt="Card
-                            image cap">
+                        <img class="img-fluid" src="storage/app/public/uploads/{{ $product->image }}"
+                            style="object-fit: cover; height: 200px; alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{ Str::limit($product->name, 20) }}</h5>
                             <p class="card-text">{{ Str::limit($product->description, 20) }}</p>
@@ -135,7 +135,7 @@
             @foreach ($popularProducts as $product)
                 <a href="/product/{{ $product->id }}" class="text-dark">
                     <div class="card" style="min-width:320px; max-width:320px; min-height:430px; max-height:430px">
-                        <img class="img-fluid" src="{{ $product->image }}"
+                        <img class="img-fluid" src="storage/app/public/uploads/{{ $product->image }}"
                             style="object-fit: cover; height: 200px; alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{ Str::limit($product->name, 20) }}</h5>
